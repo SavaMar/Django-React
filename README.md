@@ -11,8 +11,7 @@ This is a very lean implementation of React and python Django.
 ##Installation
 
 * `cd djangoreact`
-* `source gjr_env/bin/activate`
-* `git rm .git && git init`
+* `source gjr_env/bin/activate`  (I'm not sude about this option, maybe it would be better if you create your own enviroment)
 * `npm install`
 * `npm run webpack`
 * `pip install -r requirements.txt`
