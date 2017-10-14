@@ -1,36 +1,44 @@
-from rest_framework import viewsets
-from .serializers import *
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from core.models import App
+from .serializers import AppPreviewSerializer
 
 
-class AppViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = App.objects.all()
+@api_view(['GET', 'POST'])
+def app_list(request):
 
-    def get_serializer_class(self):
-        if self.action == 'list':
-            return AppPreviewSerializer
-        return AppDetailSerializer
-    def post_serializer_class
+    if request.method == 'GET':
+        apps = App.objects.all()
+        serializer = AppPreviewSerializer(apps, many=True)
+        return Response(serializer.data)
+    # new object
+    elif request.method == 'POST':
+        serializer = AppPreviewSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# from rest_framework import status
-# from rest_framework.decorators import api_view
-# from rest_framework.response import Response
-# from snippets.models import Snippet
-# from snippets.serializers import SnippetSerializer
+@api_view(['GET', 'PUT', 'DELETE'])
+def app_detail(request, pk):
 
+    try:
+        app = App.objects.get(pk=pk)
+    except App.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
-# @api_view(['GET', 'POST'])
-# def snippet_list(request):
-#     """
-#     List all code snippets, or create a new snippet.
-#     """
-#     if request.method == 'GET':
-#         snippets = Snippet.objects.all()
-#         serializer = SnippetSerializer(snippets, many=True)
-#         return Response(serializer.data)
+    if request.method == 'GET':
+        serializer = AppPreviewSerializer(app)
+        return Response(serializer.data)
 
-#     elif request.method == 'POST':
-#         serializer = SnippetSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'PUT':
+        serializer = AppPreviewSerializer(app, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        app.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

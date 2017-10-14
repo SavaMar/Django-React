@@ -1,9 +1,10 @@
-from rest_framework.routers import DefaultRouter
-from .views import *
+from django.conf.urls import url
+from rest_framework.urlpatterns import format_suffix_patterns
+from . import views
 
+urlpatterns = [
+    url(r'^app/$', views.app_list),
+    url(r'^app/(?P<pk>[0-9]+)$', views.app_detail),
+]
 
-router = DefaultRouter()
-router.register(r'app', AppViewSet)
-
-
-urlpatterns = router.urls
+urlpatterns = format_suffix_patterns(urlpatterns)

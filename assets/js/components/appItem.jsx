@@ -16,14 +16,10 @@ class AppItem extends React.Component {
             subtitle={app.created_at}
           />
           <CardText>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-            Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-            Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+            {app.description}
           </CardText>
           <CardActions>
-            <FlatButton label="Action1" />
-            <FlatButton label="Action2" />
+            <FlatButton label="Edit" />
           </CardActions>
         </Card>
       </Link>
