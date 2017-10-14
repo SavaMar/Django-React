@@ -1,19 +1,16 @@
 import React from 'react'
+import Routes from './config/routes'
+import Header from './components/header'
 
-class Hello extends React.Component {
+class Main extends React.Component {
   render(){
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-md-2"></div>
-          <div className="well col-md-8">
-            <h1 className="center">Awesome App</h1>
-          </div>
-          <div className="col-md-2"></div>
-        </div>
+      <div className="row">
+        <Header/>
+        <Routes/>
       </div>
     )
    }
 }
 
-export default Hello
+export default Main
