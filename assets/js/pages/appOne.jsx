@@ -23,14 +23,15 @@ class AppOne extends React.Component {
     this.loadApp(this.props.match.params.id);
   }
 
-  handleChange = (app) => {
-    axios.delete(`/api/app/${app.id}`, {app})
+  deleteFunc = (e) => {
+    axios.delete(`/api/app/${this.state.app.id}`, {  })
       .then((result) => {
         console.log(result);
         this.setState({ redirect: true })
       });
-  }
-// https://docs.microsoft.com/pl-pl/azure/app-service-mobile/media/index/app-service-mobile.svg
+    }
+  // }
+
   render(){
     const { app, redirect } = this.state;
     console.log(this.state.app)
@@ -49,7 +50,7 @@ class AppOne extends React.Component {
           {app.description}
         </CardText>
         <CardActions>
-          <FlatButton label="Delete" onClick={this.handleChange(app)} />
+          <FlatButton label="Delete" onClick={this.deleteFunc} />
         </CardActions>
       </Card>
     )
