@@ -2,6 +2,10 @@ import React from 'react'
 import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
 import axios from 'axios';
+import TextField from 'material-ui/TextField';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import {Card, CardText} from 'material-ui/Card';
 
 class Form extends React.Component {
   constructor(props) {
@@ -28,7 +32,7 @@ class Form extends React.Component {
   }
 
   handleSubmit = (e) => {
-    alert('A name was submitted: ' + this.state.name);
+    // alert('A name was submitted: ' + this.state.name);
     e.preventDefault();
         const { name, description, platform } = this.state;
         axios.post('/api/app/', { name, description, platform })
@@ -40,16 +44,34 @@ class Form extends React.Component {
   render(){
     const { name, description, platform } = this.state;
     return (
-      <div className="row">
+      <div className="col-md-6" style={{marginTop: "20px"}} >
+      <Card style={{padding: "20px"}}>
         <form onSubmit={this.handleSubmit}>
-          <input type="text" name="name" value={name} onChange={this.handleChange} />
-          <textarea type="text" name="description" value={description} onChange={this.handleChange} />
-            <select name="platform" value={platform} onChange={this.handleChange}>
+          <TextField
+            hintText="Name"
+            multiLine={true}
+              rows={2}
+            name="name" 
+            value={name} 
+            onChange={this.handleChange}
+          /><br />
+           <TextField
+              hintText="Description"
+              multiLine={true}
+              rows={2}
+              rowsMax={4}
+              value={description} 
+              onChange={this.handleChange}
+              name="description"
+            /><br />
+            <select name="platform" value={platform} onChange={this.handleChange} style={{margin: "10px 0"}}>
               <option value="1">IOS</option>
               <option value="2">Android</option>
             </select>
-          <input type="submit" value="Submit" />
+            <br />
+          <RaisedButton label="Create new app" primary={true} type="submit" value="Submit"/>
         </form>
+      </Card>
       </div>
     )
    }

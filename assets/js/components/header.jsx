@@ -9,9 +9,6 @@ class Header extends React.Component {
          <ToolbarGroup>
           <a href="/"><ToolbarTitle text="Apps" /> </a>           
         </ToolbarGroup>
-        <ToolbarGroup>
-            <RaisedButton label="New App" primary={true} />
-        </ToolbarGroup>
      </Toolbar>
     )
    }

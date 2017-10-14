@@ -31,6 +31,7 @@
     "material-ui": "0.19.2",
     "moment": "^2.19.1",
     "react-dom": "^15.3.2",
+    "react-moment": "^0.6.5",
     "react-router-dom": "^4.2.2"
   }
 }

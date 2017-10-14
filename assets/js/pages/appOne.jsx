@@ -1,8 +1,11 @@
 import React from 'react'
 import 'babel-polyfill';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom'
+import Moment from 'react-moment';
+import { Link } from 'react-router-dom';
 
 class AppOne extends React.Component {
   constructor(props) {
@@ -28,19 +31,19 @@ class AppOne extends React.Component {
       .then((result) => {
         console.log(result);
         this.setState({ redirect: true })
-      });
-    }
-  // }
+      }
+    );
+  }
 
   render(){
     const { app, redirect } = this.state;
     console.log(this.state.app)
     console.log(this.props.match.params.id)
-    // if (redirect) {
-    //    return <Redirect to='/somewhere'/>;
-    //  }
+    if (redirect) {
+       return <Redirect to='/'/>;
+     }
     return (
-       <Card>
+       <Card style={{marginTop:"20px"}}>
         <CardHeader
           title={app.name} 
           subtitle={app.platform == 1 ? "iOS" : "Android"}
@@ -49,8 +52,14 @@ class AppOne extends React.Component {
         <CardText>
           {app.description}
         </CardText>
+        <CardHeader
+            subtitle={ <Moment format="YYYY/MM/DD" date={app.created_at}/>}
+          />
         <CardActions>
-          <FlatButton label="Delete" onClick={this.deleteFunc} />
+        <Link to={`/`}>
+          <RaisedButton primary={true} label="Go beck" />
+        </Link>
+          <RaisedButton primary={true} label="Delete" onClick={this.deleteFunc} />
         </CardActions>
       </Card>
     )
